@@ -1,0 +1,112 @@
+{
+  "cases": [
+    {
+      "id": "add_chicken_rice",
+      "audio": "wav/add_chicken_rice.wav",
+      "expectedTranscript": "我要一份雞腿飯",
+      "expectedIntent": {
+        "type": "add_item",
+        "itemName": "雞腿飯",
+        "quantity": 1,
+        "notes": []
+      },
+      "keywords": ["雞腿飯", "一份"]
+    },
+    {
+      "id": "add_chicken_rice_no_spicy",
+      "audio": "wav/add_chicken_rice_no_spicy.wav",
+      "expectedTranscript": "我要一份雞腿飯不要辣",
+      "expectedIntent": {
+        "type": "add_item",
+        "itemName": "雞腿飯",
+        "quantity": 1,
+        "notes": ["不要辣"]
+      },
+      "keywords": ["雞腿飯", "不要辣"]
+    },
+    {
+      "id": "add_pork_rice_two",
+      "audio": "wav/add_pork_rice_two.wav",
+      "expectedTranscript": "我要兩份控肉飯",
+      "expectedIntent": {
+        "type": "add_item",
+        "itemName": "控肉飯",
+        "quantity": 2,
+        "notes": []
+      },
+      "keywords": ["控肉飯", "兩份"]
+    },
+    {
+      "id": "add_meatball_soup",
+      "audio": "wav/add_meatball_soup.wav",
+      "expectedTranscript": "再加一碗貢丸湯",
+      "expectedIntent": {
+        "type": "add_item",
+        "itemName": "貢丸湯",
+        "quantity": 1,
+        "notes": []
+      },
+      "keywords": ["貢丸湯", "一碗"]
+    },
+    {
+      "id": "modify_chicken_rice_quantity",
+      "audio": "wav/modify_chicken_rice_quantity.wav",
+      "expectedTranscript": "雞腿飯改成兩份",
+      "expectedIntent": {
+        "type": "modify_item",
+        "itemName": "雞腿飯",
+        "quantity": 2,
+        "notes": []
+      },
+      "keywords": ["雞腿飯", "兩份"]
+    },
+    {
+      "id": "modify_pork_rib_note",
+      "audio": "wav/modify_pork_rib_note.wav",
+      "expectedTranscript": "排骨飯改小辣",
+      "expectedIntent": {
+        "type": "modify_item",
+        "itemName": "排骨飯",
+        "notes": ["小辣"]
+      },
+      "keywords": ["排骨飯", "小辣"]
+    },
+    {
+      "id": "delete_meatball_soup",
+      "audio": "wav/delete_meatball_soup.wav",
+      "expectedTranscript": "貢丸湯不要了",
+      "expectedIntent": {
+        "type": "delete_item",
+        "itemName": "貢丸湯"
+      },
+      "keywords": ["貢丸湯", "不要了"]
+    },
+    {
+      "id": "reset_order",
+      "audio": "wav/reset_order.wav",
+      "expectedTranscript": "全部重來",
+      "expectedIntent": {
+        "type": "reset"
+      },
+      "keywords": ["全部重來"]
+    },
+    {
+      "id": "finish_ordering",
+      "audio": "wav/finish_ordering.wav",
+      "expectedTranscript": "好了",
+      "expectedIntent": {
+        "type": "finish_ordering"
+      },
+      "keywords": ["好了"]
+    },
+    {
+      "id": "confirm_submit",
+      "audio": "wav/confirm_submit.wav",
+      "expectedTranscript": "確認",
+      "expectedIntent": {
+        "type": "confirm_submit"
+      },
+      "keywords": ["確認"]
+    }
+  ]
+}

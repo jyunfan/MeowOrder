@@ -1,0 +1,29 @@
+{
+  "name": "confirm guard",
+  "utterances": [
+    "我要一份雞排飯",
+    "確認"
+  ],
+  "expectedIntents": [
+    {
+      "type": "add_item",
+      "itemName": "雞排飯",
+      "quantity": 1,
+      "notes": []
+    },
+    {
+      "type": "unclear"
+    }
+  ],
+  "expectedOrder": {
+    "finalConfirming": false,
+    "completed": false,
+    "lines": [
+      {
+        "itemName": "雞排飯",
+        "quantity": 1,
+        "notes": []
+      }
+    ]
+  }
+}

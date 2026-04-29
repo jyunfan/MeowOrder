@@ -1,0 +1,39 @@
+{
+  "name": "modify note",
+  "utterances": [
+    "我要一份排骨飯",
+    "排骨飯改小辣",
+    "好了",
+    "確認"
+  ],
+  "expectedIntents": [
+    {
+      "type": "add_item",
+      "itemName": "排骨飯",
+      "quantity": 1,
+      "notes": []
+    },
+    {
+      "type": "modify_item",
+      "itemName": "排骨飯",
+      "notes": ["小辣"]
+    },
+    {
+      "type": "finish_ordering"
+    },
+    {
+      "type": "confirm_submit"
+    }
+  ],
+  "expectedOrder": {
+    "finalConfirming": true,
+    "completed": true,
+    "lines": [
+      {
+        "itemName": "排骨飯",
+        "quantity": 1,
+        "notes": ["小辣"]
+      }
+    ]
+  }
+}

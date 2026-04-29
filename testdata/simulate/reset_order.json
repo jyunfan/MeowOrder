@@ -1,0 +1,30 @@
+{
+  "name": "reset order",
+  "utterances": [
+    "我要一份滷肉飯",
+    "再加一碗魚丸湯",
+    "全部重來"
+  ],
+  "expectedIntents": [
+    {
+      "type": "add_item",
+      "itemName": "滷肉飯",
+      "quantity": 1,
+      "notes": []
+    },
+    {
+      "type": "add_item",
+      "itemName": "魚丸湯",
+      "quantity": 1,
+      "notes": []
+    },
+    {
+      "type": "reset"
+    }
+  ],
+  "expectedOrder": {
+    "finalConfirming": false,
+    "completed": false,
+    "lines": []
+  }
+}

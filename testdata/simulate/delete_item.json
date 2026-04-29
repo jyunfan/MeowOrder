@@ -1,0 +1,45 @@
+{
+  "name": "delete item",
+  "utterances": [
+    "我要一份控肉飯",
+    "再加一碗蛋花湯",
+    "蛋花湯不要了",
+    "好了",
+    "確認"
+  ],
+  "expectedIntents": [
+    {
+      "type": "add_item",
+      "itemName": "控肉飯",
+      "quantity": 1,
+      "notes": []
+    },
+    {
+      "type": "add_item",
+      "itemName": "蛋花湯",
+      "quantity": 1,
+      "notes": []
+    },
+    {
+      "type": "delete_item",
+      "itemName": "蛋花湯"
+    },
+    {
+      "type": "finish_ordering"
+    },
+    {
+      "type": "confirm_submit"
+    }
+  ],
+  "expectedOrder": {
+    "finalConfirming": true,
+    "completed": true,
+    "lines": [
+      {
+        "itemName": "控肉飯",
+        "quantity": 1,
+        "notes": []
+      }
+    ]
+  }
+}

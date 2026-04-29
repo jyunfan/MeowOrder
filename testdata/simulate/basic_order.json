@@ -1,0 +1,45 @@
+{
+  "name": "basic order",
+  "utterances": [
+    "我要一份雞腿飯不要辣",
+    "再加一碗貢丸湯",
+    "好了",
+    "確認"
+  ],
+  "expectedIntents": [
+    {
+      "type": "add_item",
+      "itemName": "雞腿飯",
+      "quantity": 1,
+      "notes": ["不要辣"]
+    },
+    {
+      "type": "add_item",
+      "itemName": "貢丸湯",
+      "quantity": 1,
+      "notes": []
+    },
+    {
+      "type": "finish_ordering"
+    },
+    {
+      "type": "confirm_submit"
+    }
+  ],
+  "expectedOrder": {
+    "finalConfirming": true,
+    "completed": true,
+    "lines": [
+      {
+        "itemName": "雞腿飯",
+        "quantity": 1,
+        "notes": ["不要辣"]
+      },
+      {
+        "itemName": "貢丸湯",
+        "quantity": 1,
+        "notes": []
+      }
+    ]
+  }
+}
