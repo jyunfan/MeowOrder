@@ -1,0 +1,27 @@
+name: OrderBot
+options:
+  bundleIdPrefix: com.orderbot
+  deploymentTarget:
+    iOS: "17.0"
+packages:
+  OrderBotPackage:
+    path: .
+targets:
+  OrderBotIOS:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - App/OrderBotIOS
+    dependencies:
+      - package: OrderBotPackage
+        product: OrderBotAppFeature
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.orderbot.ipad
+        PRODUCT_NAME: OrderBot
+        INFOPLIST_FILE: App/OrderBotIOS/Info.plist
+        ORDERBOT_MASCOT: corgi
+        TARGETED_DEVICE_FAMILY: "2"
+        SUPPORTS_MACCATALYST: false
+        ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: false
