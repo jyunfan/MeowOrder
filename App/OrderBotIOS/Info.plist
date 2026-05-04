@@ -22,6 +22,10 @@
 	<string>1</string>
 	<key>OrderBotMascot</key>
 	<string>$(ORDERBOT_MASCOT)</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>OrderBot 需要使用麥克風聽取你的點餐內容。</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>OrderBot 需要使用 iOS 語音辨識把點餐內容轉成文字。</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

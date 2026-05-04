@@ -34,6 +34,7 @@ public struct OrderKioskScreen: View {
                     prompt: viewModel.promptText,
                     debugInput: $debugInput,
                     mascotKind: viewModel.mascotKind,
+                    isListening: viewModel.isVoiceInputActive,
                     sampleUtterances: sampleUtterances,
                     onStartListening: viewModel.startListening,
                     onSubmit: submitDebugInput,
@@ -738,6 +739,7 @@ private struct PromptBar: View {
     let prompt: String
     @Binding var debugInput: String
     let mascotKind: MascotKind
+    let isListening: Bool
     let sampleUtterances: [String]
     let onStartListening: () -> Void
     let onSubmit: () -> Void
@@ -757,16 +759,16 @@ private struct PromptBar: View {
                 Spacer()
 
                 Button(action: onStartListening) {
-                    Label("聽", systemImage: "mic.fill")
+                    Label(isListening ? "停止" : "聽", systemImage: isListening ? "stop.fill" : "mic.fill")
                         .labelStyle(.iconOnly)
                         .font(.system(size: 24, weight: .bold))
                         .frame(width: 54, height: 54)
                 }
                 .buttonStyle(.plain)
-                .foregroundStyle(AppTheme.promptBackground)
-                .background(.white)
+                .foregroundStyle(isListening ? .white : AppTheme.promptBackground)
+                .background(isListening ? AppTheme.accent : .white)
                 .clipShape(Circle())
-                .accessibilityLabel("開始聽")
+                .accessibilityLabel(isListening ? "停止聽並辨識" : "開始聽")
 
                 Button(action: onReset) {
                     Label("重來", systemImage: "arrow.counterclockwise")

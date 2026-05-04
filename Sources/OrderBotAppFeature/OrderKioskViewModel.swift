@@ -12,8 +12,10 @@ public final class OrderKioskViewModel {
     public var currentMessage: String
     public var candidateItems: [String] = []
     public var order = Order()
+    public var isVoiceInputActive = false
 
     private let parser: OrderParser
+    private let speechInput = NativeSpeechInput()
 
     public init(parser: OrderParser = OrderParser(), mascotKind: MascotKind = .configuredDefault) {
         self.parser = parser
@@ -26,7 +28,7 @@ public final class OrderKioskViewModel {
         case .idle:
             return "請直接說：「我要一份雞腿飯，不要辣」"
         case .listening:
-            return "正在聽你說，請說出想點的餐點。"
+            return "正在聽你說，說完請再按一次麥克風。"
         case .parsing:
             return "我正在幫你確認剛剛說的內容。"
         case .orderUpdated:
@@ -65,11 +67,31 @@ public final class OrderKioskViewModel {
             return
         }
 
+        if isVoiceInputActive {
+            finishVoiceInput()
+            return
+        }
+
         state = .listening
         currentTitle = "正在聽你說"
-        currentMessage = "請說出想點的餐點。"
+        currentMessage = "請說出想點的餐點，說完後再按一次麥克風。"
         currentTranscript = ""
         candidateItems = []
+        isVoiceInputActive = true
+
+        Task {
+            await speechInput.start(
+                onPartialResult: { [weak self] transcript in
+                    self?.handlePartialSpeech(transcript)
+                },
+                onFinalResult: { [weak self] transcript in
+                    self?.handleRecognizedSpeech(transcript)
+                },
+                onError: { [weak self] message in
+                    self?.handleSpeechError(message)
+                }
+            )
+        }
     }
 
     public func setMascotKind(_ kind: MascotKind) {
@@ -82,6 +104,11 @@ public final class OrderKioskViewModel {
     }
 
     public func handleDebugUtterance(_ utterance: String) {
+        if isVoiceInputActive {
+            speechInput.stop(submitCurrentAudio: false)
+            isVoiceInputActive = false
+        }
+
         let trimmed = utterance.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else {
             state = .unclear
@@ -105,11 +132,44 @@ public final class OrderKioskViewModel {
     }
 
     public func reset() {
+        speechInput.stop(submitCurrentAudio: false)
+        isVoiceInputActive = false
         order.reset()
         state = .idle
         currentTranscript = ""
         currentTitle = "歡迎光臨"
         currentMessage = Self.welcomeMessage(for: mascotKind)
+        candidateItems = []
+    }
+
+    private func finishVoiceInput() {
+        speechInput.stop(submitCurrentAudio: false)
+        isVoiceInputActive = false
+        handleDebugUtterance(currentTranscript)
+    }
+
+    private func handlePartialSpeech(_ transcript: String) {
+        guard isVoiceInputActive else { return }
+        currentTranscript = transcript
+        currentTitle = "我聽到"
+        currentMessage = transcript.isEmpty ? "正在聽你說，請繼續。" : transcript
+    }
+
+    private func handleRecognizedSpeech(_ transcript: String) {
+        guard isVoiceInputActive else { return }
+        speechInput.stop(submitCurrentAudio: false)
+        isVoiceInputActive = false
+        handleDebugUtterance(transcript)
+    }
+
+    private func handleSpeechError(_ message: String) {
+        guard isVoiceInputActive || state == .listening else { return }
+        speechInput.stop(submitCurrentAudio: false)
+        isVoiceInputActive = false
+        state = .unclear
+        currentTitle = "語音輸入失敗"
+        currentMessage = message
+        currentTranscript = ""
         candidateItems = []
     }
 
